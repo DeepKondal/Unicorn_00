@@ -11,12 +11,15 @@ public class Authentication {
 		// For simplicity, let's add some predefined users (username:password)
 		users.put("user1", "password1");
 		users.put("user2", "password2");
-		users.put("John", "password1");
+		users.put("John", "password");
 		// Add more users as needed
 	}
 
 	public boolean authenticateUser(String username, String password) {
 		// Check if the username exists in the map and if the provided password matches the stored password
 		return users.containsKey(username) && users.get(username).equals(password);
+	}
+	public void addUser(String username, String password) {
+		users.put(username, password);
 	}
 }

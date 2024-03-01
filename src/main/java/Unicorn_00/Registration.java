@@ -21,4 +21,7 @@ public class Registration {
         registeredUsers.add(newUser);
         System.out.println("User registered successfully!");
     }
+    public List<User> getRegisteredUsers() {
+        return registeredUsers;
+    }
 }
