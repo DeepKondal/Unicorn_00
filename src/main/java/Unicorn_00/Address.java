@@ -7,6 +7,14 @@ public class Address {
 	private String postCode;
 	private String country;
 
+	public Address(int i, String s, String city, String number, String country) {
+	}
+
+	public Address() {
+
+	}
+
+
 	public void updateAddress() {
 		// Logic to update address details
 	}

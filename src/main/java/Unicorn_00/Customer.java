@@ -5,11 +5,17 @@ import java.util.List;
 
 public class Customer extends User {
 	private List<Product> cart;
-	private String[] address;
+	private Address address;
 
 	public Customer(int userID, String username, String password, String email) {
 		super(userID, username, password, email);
 		this.cart = new ArrayList<>();
+	}
+
+	public Customer(int userID, String username, String password, String email, Address address) {
+		super(userID, username, password, email);
+		this.cart = new ArrayList<>();
+		this.address = address;
 	}
 
 	public void addToCart(Product product) {
@@ -42,5 +48,15 @@ public class Customer extends User {
 		}
 	}
 
-	// We can add Getters and setters for address here
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public void deleteCustomer() {
+		this.address = null;
+	}
 }

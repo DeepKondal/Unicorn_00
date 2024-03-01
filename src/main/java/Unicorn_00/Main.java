@@ -3,40 +3,44 @@ package Unicorn_00;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 public class Main {
     public static void main(String[] args) {
-        // Create an admin
-        Admin admin = new Admin(1, "admin", "admin123", "admin@example.com", 1001);
+        //Register a new user
+        Registration registration = new Registration();
+        registration.registerUser("John", "password1", "user1@example.com");
 
-        // Admin login
-        admin.login();
+        //Authentication instance
+        Authentication authentication = new Authentication();
 
-        // Admin adds a product
-        admin.addProduct(new Product(101, "Laptop", BigDecimal.valueOf(999.99), "High-performance laptop", 10, "laptop.jpg"));
+        //Login with the registered user credentials
+        Login login = new Login(authentication);
+        boolean loggedIn = login.loginUser("John", "password1");
 
-        // Admin generates sales report
-        admin.generateSalesReport();
+        if (loggedIn) {
+            System.out.println("User is here!!");
 
-        // Admin logout
-        admin.logout();
+            //Perform some actions while logged in like create a Customer instance
+            Customer customer = new Customer(1, "John", "password1", "john@example.com");
 
-        // Create a customer
-        Customer customer = new Customer(2, "customer", "customer123", "customer@example.com");
+            //Logout
+            Logout logout = new Logout();
+            logout.logoutUser(login);
 
-        // Customer login
-        customer.login();
+            //Trying to log in again (should fail after logout)
+            if (login.isLoggedIn()) {
+                System.out.println("User is already logged in.1");
+            } else {
+                loggedIn = login.loginUser("John", "password1");
+                if (!loggedIn) {
+                    System.out.println("User cannot log in. User is already logged out.");
+                } else {
+                    System.out.println("User has logged in again!");
+                    // User is logged in as a customer
+                    System.out.println("User name is : " +customer.getUsername());
+                }
+            }
 
-        // Customer adds products to cart
-        customer.addToCart(new Product(201, "Smartphone", BigDecimal.valueOf(599.99), "Flagship smartphone", 1, "smartphone.jpg"));
-        customer.addToCart(new Product(202, "Tablet", BigDecimal.valueOf(399.99), "Portable tablet", 2, "tablet.jpg"));
-
-        // Customer places order
-        customer.placeOrder();
-
-        // Customer logout
-        customer.logout();
+        }
+        }
     }
-}
-
 
