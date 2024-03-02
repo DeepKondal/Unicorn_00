@@ -2,7 +2,6 @@ package Unicorn_00;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class Authentication {
 	private Map<String, String> users; // Map of usernames to passwords
 
@@ -19,7 +18,14 @@ public class Authentication {
 		// Check if the username exists in the map and if the provided password matches the stored password
 		return users.containsKey(username) && users.get(username).equals(password);
 	}
+
 	public void addUser(String username, String password) {
 		users.put(username, password);
 	}
+
+	// Getter for users map
+	public Map<String, String> getUsers() {
+		return users;
+	}
 }
+

@@ -56,12 +56,7 @@ public class Product {
 
 	public String getProductDetails() {
 		// Format product details as a string
-		return "Product ID: " + productID + "\n" +
-				"Name: " + name + "\n" +
-				"Price: $" + price + "\n" +
-				"Description: " + description + "\n" +
-				"Stock Quantity: " + stockQuantity + "\n" +
-				"Image: " + image;
+		return STR."Product ID: \{productID}\nName: \{name}\nPrice: $\{price}\nDescription: \{description}\nStock Quantity: \{stockQuantity}\nImage: \{image}";
 	}
 
 	public void addCategory(Category category) {

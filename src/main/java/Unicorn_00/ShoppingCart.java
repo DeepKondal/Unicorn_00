@@ -42,18 +42,22 @@ public class ShoppingCart {
 
 	// Getters and setters for cartID and creationDate
 	public int getCartID() {
+
 		return cartID;
 	}
 
 	public void setCartID(int cartID) {
+
 		this.cartID = cartID;
 	}
 
 	public Date getCreationDate() {
+
 		return creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
+
 		this.creationDate = creationDate;
 	}
 }

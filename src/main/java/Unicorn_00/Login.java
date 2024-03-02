@@ -19,9 +19,11 @@ public class Login {
 
             // Call the authenticateUser method from the Authentication class
             boolean authenticated = authentication.authenticateUser(username, password);
+            // this means user is registered with us
             if (authenticated) {
                 isLoggedIn = true; // Set isLoggedIn to true upon successful login
                 System.out.println("User logged in successfully.");
+                //this means user is not registered with us.
             } else {
                 System.out.println("Login failed. Invalid credentials.");
             }
@@ -31,7 +33,6 @@ public class Login {
             return false;
         }
     }
-
 
 
     public boolean isLoggedIn() {

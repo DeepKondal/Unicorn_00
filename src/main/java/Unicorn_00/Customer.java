@@ -7,16 +7,23 @@ public class Customer extends User {
 	private List<Product> cart;
 	private Address address;
 
-	public Customer(int userID, String username, String password, String email) {
+	public Customer(int userID, String username, String password, String email, boolean isLoggedIn) {
 		super(userID, username, password, email);
+		if (!isLoggedIn) {
+			throw new IllegalStateException("Cannot create a Customer object for a user who is not logged in.");
+		}
 		this.cart = new ArrayList<>();
 	}
 
-	public Customer(int userID, String username, String password, String email, Address address) {
+	public Customer(int userID, String username, String password, String email, Address address, boolean isLoggedIn) {
 		super(userID, username, password, email);
+		if (!isLoggedIn) {
+			throw new IllegalStateException("Cannot create a Customer object for a user who is not logged in.");
+		}
 		this.cart = new ArrayList<>();
 		this.address = address;
 	}
+
 
 	public void addToCart(Product product) {
 		cart.add(product);

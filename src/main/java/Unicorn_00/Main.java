@@ -4,43 +4,27 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        //Register a new user
-        Registration registration = new Registration();
-        registration.registerUser("John", "password1", "user1@example.com");
 
-        //Authentication instance
+    public static void main(String[] args) {
+        // Create an instance of Authentication
         Authentication authentication = new Authentication();
 
-        //Login with the registered user credentials
+        // Create instances of Login, Logout, and Registration
         Login login = new Login(authentication);
-        boolean loggedIn = login.loginUser("John", "password1");
+        Logout logout = new Logout();
+        Registration registration = new Registration(authentication);
 
-        if (loggedIn) {
-            System.out.println("User is here!!");
+        // Register a user
+        registration.registerUser("user1", "password1", "user1@example.com");
 
-            //Perform some actions while logged in like create a Customer instance
-            Customer customer = new Customer(1, "John", "password1", "john@example.com");
-
-            //Logout
-            Logout logout = new Logout();
-            logout.logoutUser(login);
-
-            //Trying to log in again (should fail after logout)
-            if (login.isLoggedIn()) {
-                System.out.println("User is already logged in.1");
-            } else {
-                loggedIn = login.loginUser("John", "password1");
-                if (!loggedIn) {
-                    System.out.println("User cannot log in. User is already logged out.");
-                } else {
-                    System.out.println("User has logged in again!");
-                    // User is logged in as a customer
-                    System.out.println("User name is : " +customer.getUsername());
-                }
-            }
-
-        }
-        }
+        // Attempt to log in with correct credentials
+        login.loginUser("user1", "password1");
+        Customer customer = new Customer(1, "user1", "password1", "user1@example.com",login.isLoggedIn());
+        System.out.println("User name is : " +customer.getUsername());
+        // Log out the user
+        logout.logoutUser(login);
+        // Attempt to log in with incorrect credentials
+        login.loginUser("user1", "wrongpassword");
     }
+}
 

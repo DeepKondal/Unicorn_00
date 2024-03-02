@@ -8,8 +8,9 @@ public class RegistrationTest {
 
     @Test
     public void testRegisterUser() {
+        Authentication authentication = new Authentication();
         // Create a new Registration instance
-        Registration registration = new Registration();
+        Registration registration = new Registration(authentication);
 
         // Call the registerUser method
         registration.registerUser("testUser", "testPassword", "test@example.com");
