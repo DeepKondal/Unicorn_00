@@ -1,11 +1,11 @@
 package Unicorn_00;
 
-import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class CartItem {
 	private int quantity;
-	private BigDecimal subTotal;
 	private Product product;
+	private double subTotal;
 
 	public CartItem(Product product, int quantity) {
 		this.product = product;
@@ -18,17 +18,16 @@ public class CartItem {
 		calculateSubTotal();
 	}
 
-	private void calculateSubTotal() {
-		BigDecimal pricePerItem = product.getPrice();
-		subTotal = pricePerItem.multiply(BigDecimal.valueOf(quantity));
+	public void calculateSubTotal() {
+		double pricePerItem = product.getPrice();
+		// Rounding off to two decimal places
+        DecimalFormat df = new DecimalFormat("#.##");
+
+		this.subTotal = Double.valueOf(df.format(pricePerItem * quantity));
 	}
 
 	public int getQuantity() {
 		return quantity;
-	}
-
-	public BigDecimal getSubTotal() {
-		return subTotal;
 	}
 
 	public Product getProduct() {
@@ -37,5 +36,17 @@ public class CartItem {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
 	}
 }

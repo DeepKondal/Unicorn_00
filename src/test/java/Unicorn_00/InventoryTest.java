@@ -2,7 +2,6 @@ package Unicorn_00;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +14,7 @@ public class InventoryTest {
     }
     @Test
     public void testAddProduct() {
-        Product newProduct = new Product(104, "New Product", BigDecimal.valueOf(25.99), "Description 4", 20, "image4.jpg");
+        Product newProduct = new Product(104, "New Product", 25.99, "Description 4", 20, "image4.jpg");
         inventory.addProduct(newProduct);
 
         assertTrue(inventory.getProducts().contains(newProduct));
@@ -38,7 +37,7 @@ public class InventoryTest {
     @Test
     public void testUpdateProduct() {
         int productIdToUpdate = 102;
-        Product updatedProduct = new Product(productIdToUpdate, "Updated Product", BigDecimal.valueOf(30.99), "Updated Description", 25, "updated_image.jpg");
+        Product updatedProduct = new Product(productIdToUpdate, "Updated Product", 30.99, "Updated Description", 25, "updated_image.jpg");
         inventory.updateProduct(productIdToUpdate, updatedProduct);
 
         for (Product product : inventory.getProducts()) {

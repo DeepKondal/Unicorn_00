@@ -1,6 +1,5 @@
 package Unicorn_00;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -18,9 +17,9 @@ public class Inventory {
 	private List<Product> initializeInventory() {
 		List<Product> productList = new ArrayList<>();
 		// Hardcoded initial products
-		productList.add(new Product(101, "Product 1", BigDecimal.valueOf(10.99), "Description 1", 50, "image1.jpg"));
-		productList.add(new Product(102, "Product 2", BigDecimal.valueOf(20.99), "Description 2", 30, "image2.jpg"));
-		productList.add(new Product(103, "Product 3", BigDecimal.valueOf(15.99), "Description 3", 40, "image3.jpg"));
+		productList.add(new Product(101, "Product 1", 10.99, "Description 1", 50, "image1.jpg"));
+		productList.add(new Product(102, "Product 2", 20.99, "Description 2", 30, "image2.jpg"));
+		productList.add(new Product(103, "Product 3",15.99, "Description 3", 40, "image3.jpg"));
 		return productList;
 	}
 

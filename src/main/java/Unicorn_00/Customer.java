@@ -2,9 +2,11 @@ package Unicorn_00;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Customer extends User {
-	private List<Product> cart;
+	private ShoppingCart cart;
+	private List <Order> orders;
 	private Address address;
 
 	public Customer(int userID, String username, String password, String email, boolean isLoggedIn) {
@@ -12,7 +14,8 @@ public class Customer extends User {
 		if (!isLoggedIn) {
 			throw new IllegalStateException("Cannot create a Customer object for a user who is not logged in.");
 		}
-		this.cart = new ArrayList<>();
+		this.cart = new ShoppingCart();
+		this.orders = new ArrayList<>();
 	}
 
 	public Customer(int userID, String username, String password, String email, Address address, boolean isLoggedIn) {
@@ -20,39 +23,50 @@ public class Customer extends User {
 		if (!isLoggedIn) {
 			throw new IllegalStateException("Cannot create a Customer object for a user who is not logged in.");
 		}
-		this.cart = new ArrayList<>();
-		this.address = address;
+		this.cart = new ShoppingCart();
+		this.orders = new ArrayList<>();
 	}
 
 
-	public void addToCart(Product product) {
-		cart.add(product);
+	public void addToCart(Product product, int quantity) {
+		cart.addProduct(product, quantity);
 	}
 
 	public void removeFromCart(Product product) {
 		// Remove the product from the cart
-		cart.remove(product);
+		cart.removeProduct(product.getProductID());
 	}
 
-	public void clearCart() {
-		cart.clear();
-	}
-
-	public void placeOrder() {
+	public Order placeOrder() {
 		// Check if the cart is not empty
 		if (!cart.isEmpty()) {
 			// Create an order object using the products in the cart (for now, we'll just print a message)
 			System.out.println("Placing order with the following products:");
-			for (Product product : cart) {
-				System.out.println(product.getName() + " - $" + product.getPrice());
+			for (CartItem cartItem : cart.getCartItems()) {
+				System.out.println(cartItem.getProduct().getName() + " - $" + cartItem.getProduct().getPrice() + "  -  "+cartItem.getQuantity()+" units");
 				// Logic to update inventory, order database, etc., would go here in a real system
 			}
-			// Clear the cart after placing the order
-			clearCart();
-			System.out.println("Order placed successfully!");
-		} else {
-			System.out.println("Cart is empty. Cannot place an order.");
+			Order customerOrder = cart.checkout();
+			if (customerOrder == null){
+				System.out.println("Payment failed");
+				return null;
+			}
+			else{
+				System.out.println("Order placed successfully! with OrderID: "+customerOrder.getOrderID());
+				// Clear the cart after placing the order
+				cart.clearCart();
+				orders.add(customerOrder);
+				return customerOrder;
+			}
 		}
+		else{
+			System.out.println("Cart empty, cant place order");
+			return null;
+		}
+	}
+
+	public void clearCart(){
+		cart.clearCart();
 	}
 
 	public Address getAddress() {
@@ -65,5 +79,17 @@ public class Customer extends User {
 
 	public void deleteCustomer() {
 		this.address = null;
+	}
+
+		public List <Order> getOrders() {
+		return orders;
+	}
+
+	public void cancelOrder(UUID orderID){
+		orders.removeIf(order -> order.getOrderID() == orderID);
+	}
+
+	public ShoppingCart getCart() {
+		return cart;
 	}
 }

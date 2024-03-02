@@ -7,13 +7,13 @@ import java.util.List;
 public class Product {
 	private int productID;
 	private String name;
-	private BigDecimal price;
+	private double price;
 	private String description;
 	private int stockQuantity;
 	private String image;
 	private List<Category> categories;
 
-	public Product(int productID, String name, BigDecimal price, String description, int stockQuantity, String image) {
+	public Product(int productID, String name, double price, String description, int stockQuantity, String image) {
 		this.productID = productID;
 		this.name = name;
 		this.price = price;
@@ -30,7 +30,7 @@ public class Product {
 		stockQuantity += quantity;
 	}
 
-	public BigDecimal getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
@@ -56,7 +56,7 @@ public class Product {
 
 	public String getProductDetails() {
 		// Format product details as a string
-		return STR."Product ID: \{productID}\nName: \{name}\nPrice: $\{price}\nDescription: \{description}\nStock Quantity: \{stockQuantity}\nImage: \{image}";
+		return "Product ID: "+ productID +"\nName: "+name+"\nPrice: $"+price+"\nDescription: "+description+"\nStock Quantity: "+stockQuantity+"\nImage: "+image;
 	}
 
 	public void addCategory(Category category) {
