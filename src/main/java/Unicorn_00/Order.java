@@ -16,14 +16,7 @@ public class Order {
 	public Order(List <CartItem> cartItems, double orderAmount) {
 		this.cartItems = new ArrayList<>();
 		this.orderAmount = orderAmount;
-	}
-
-	public void addLineItem(CartItem cartItem) {
-		cartItems.add(cartItem);
-	}
-
-	public void removeLineItem(CartItem cartItem) {
-		cartItems.remove(cartItem);
+		placeOrder();
 	}
 
 	public void viewOrder() {
@@ -44,6 +37,8 @@ public class Order {
 		//generate the OrderID.
 		if (payment.getPaymentStatus()){
 			orderID = UUID.randomUUID();
+			orderDate = new Date();
+			status = true;
 			//add the payment to payment history.
 
 
@@ -51,12 +46,6 @@ public class Order {
 		// Logic to place the order
 		// For simplicity, let's just print a message
 		//System.out.println("Order placed successfully!");
-	}
-
-	public void cancelOrder() {
-		// Logic to cancel the order
-		// For simplicity, let's just print a message
-		System.out.println("Order cancelled successfully!");
 	}
 
 	public UUID getOrderID() {

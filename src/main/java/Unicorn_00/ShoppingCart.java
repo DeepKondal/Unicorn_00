@@ -61,8 +61,6 @@ public class ShoppingCart {
 	public Order checkout() {
 		calculateTotal();
 		Order customerOrder = new Order(cartItems, totalAmount);
-		//generate order ID.
-		customerOrder.placeOrder();
 
 		// Check if payment is successful, orderID generated.
 		if (customerOrder.getOrderID() != null) {
