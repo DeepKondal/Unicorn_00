@@ -10,24 +10,34 @@ public class ShoppingCart {
 	private Date creationDate;
 	private List<CartItem> cartItems;
 	private double totalAmount;
+	private User currentUser;
 
 	public ShoppingCart() {
 		this.cartItems = new ArrayList<>();
 	}
 
 	public void addProduct(Product product, int quantity) {
-		// Check if the product is already in the cart
-		for (CartItem item : cartItems) {
-			if (item.getProduct().getProductID() == product.getProductID()) {
-				// If the product is already in the cart, update the quantity
-				item.setQuantity(item.getQuantity() + quantity);
-				return;
+		// Check if adding this product will exceed the maximum limit
+		if (cartItems.size() + 1 <= 30) {
+			// Check if the product is already in the cart
+			for (CartItem item : cartItems) {
+				if (item.getProduct().getProductID() == product.getProductID()) {
+					// If the product is already in the cart, update the quantity
+					item.setQuantity(item.getQuantity() + quantity);
+					return;
+				}
 			}
+			// If the product is not already in the cart, add it as a new line item
+			CartItem cartItem = new CartItem(product, quantity);
+			cartItems.add(cartItem);
+			calculateTotal();
+
+		} else {
+			// Handle case where adding the product will exceed the maximum limit
+			System.out.println("Cannot add more than 30 products to the cart.");
 		}
-		// If the product is not already in the cart, add it as a new line item
-		CartItem cartItem = new CartItem(product, quantity);
-		cartItems.add(cartItem);
 	}
+
 
 	public void removeProduct(int productId) {
 		// Remove the line item associated with the specified product ID
@@ -40,9 +50,37 @@ public class ShoppingCart {
 			total += item.getSubTotal();
 		}
 		// Rounding off to two decimal places
-        DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#.##");
 		this.totalAmount = Double.valueOf(df.format(total));
 	}
+
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	public boolean checkout(Order order) {
+		if (!isEmpty()) {
+			// Apply the discount and tax using the getOrderAmount method
+			double orderAmountAfterDiscountAndTax = order.getOrderAmount();
+
+			order.setOrderAmount(orderAmountAfterDiscountAndTax); // Update the order amount
+			order.setOrderDate(new Date());
+			order.setStatus(true);
+			return true;
+		} else {
+			System.out.println("Cart is empty, cannot proceed with checkout.");
+			return false;
+		}
+	}
+
+
+
+
+
 
 	public boolean isEmpty(){
 		if (cartItems.size() == 0){
@@ -58,18 +96,6 @@ public class ShoppingCart {
 		this.totalAmount = 0.0;
 	}
 
-	public Order checkout() {
-		calculateTotal();
-		Order customerOrder = new Order(cartItems, totalAmount);
-
-		// Check if payment is successful, orderID generated.
-		if (customerOrder.getOrderID() != null) {
-			//order.viewOrder();
-			return customerOrder;
-		} else {
-			return null;
-		}
-	}
 	// Getters and setters for cartID and creationDate
 	public int getCartID() {
 
@@ -100,3 +126,4 @@ public class ShoppingCart {
 	}
 
 }
+

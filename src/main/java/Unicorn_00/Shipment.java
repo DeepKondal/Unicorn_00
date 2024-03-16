@@ -1,25 +1,23 @@
 package Unicorn_00;
 
+import java.util.UUID;
+
 public class Shipment {
-	private int shipmentID;
+	private String shipmentID;
 	private String orderID;
-	private String deliveryMethod;
 	private DeliveryChoice deliveryChoice;
 
-	// Constructor
-	public Shipment(int shipmentID, String orderID, String deliveryMethod, DeliveryChoice deliveryChoice) {
-		this.shipmentID = shipmentID;
+	public Shipment(String orderID, DeliveryChoice deliveryChoice) {
+		this.shipmentID = UUID.randomUUID().toString();
 		this.orderID = orderID;
-		this.deliveryMethod = deliveryMethod;
 		this.deliveryChoice = deliveryChoice;
 	}
 
-	// Getters and setters
-	public int getShipmentID() {
+	public String getShipmentID() {
 		return shipmentID;
 	}
 
-	public void setShipmentID(int shipmentID) {
+	public void setShipmentID(String shipmentID) {
 		this.shipmentID = shipmentID;
 	}
 
@@ -29,14 +27,6 @@ public class Shipment {
 
 	public void setOrderID(String orderID) {
 		this.orderID = orderID;
-	}
-
-	public String getDeliveryMethod() {
-		return deliveryMethod;
-	}
-
-	public void setDeliveryMethod(String deliveryMethod) {
-		this.deliveryMethod = deliveryMethod;
 	}
 
 	public DeliveryChoice getDeliveryChoice() {
@@ -51,4 +41,5 @@ public class Shipment {
 	public void updateShippingInfo() {
 		// Logic to update shipping information
 	}
+
 }

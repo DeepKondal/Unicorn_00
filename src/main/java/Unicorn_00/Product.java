@@ -23,8 +23,6 @@ public class Product {
 		this.categories = new ArrayList<>();
 	}
 
-	public Product(int productID, String laptop, double v) {
-	}
 
 	public void updateStock(int quantity) {
 		stockQuantity += quantity;

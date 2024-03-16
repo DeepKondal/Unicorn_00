@@ -8,20 +8,27 @@ public class CartItem {
 	private double subTotal;
 
 	public CartItem(Product product, int quantity) {
-		this.product = product;
 		this.quantity = quantity;
+		this.product = product;
 		calculateSubTotal();
 	}
 
+
+
 	public void updateQuantity(int newQuantity) {
-		this.quantity = newQuantity;
-		calculateSubTotal();
+		if (newQuantity <= product.getStockQuantity()) { // Check if new quantity does not exceed stock
+			this.quantity = newQuantity;
+			calculateSubTotal();
+		} else {
+			System.out.println("Quantity cannot exceed product stock!");
+		}
 	}
+
 
 	public void calculateSubTotal() {
 		double pricePerItem = product.getPrice();
 		// Rounding off to two decimal places
-        DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#.##");
 
 		this.subTotal = Double.valueOf(df.format(pricePerItem * quantity));
 	}
@@ -49,4 +56,6 @@ public class CartItem {
 	public void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
 	}
+
 }
+

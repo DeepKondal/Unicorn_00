@@ -27,6 +27,7 @@ public class OrderTest {
     public void testplaceOrder() {
 
         Order order = new Order(cart,100.00);
+        System.out.println("for order id :" +order.getOrderID());
         assertTrue(order.getOrderID() instanceof UUID);
     }
 }

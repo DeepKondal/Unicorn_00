@@ -4,11 +4,17 @@ public class Admin extends User {
 	private int adminID;
 	private Inventory inventory;
 
-	public Admin(int userID, String username, String password, String email, int adminID, Inventory inventory) {
-		super(userID, username, password, email);
-		this.adminID = adminID;
+	public Admin(String username, String password, String email, Inventory inventory) {
+		super(generateAdminID(), username, password, email, true); // Set isAdmin flag to true for Admin objects
 		this.inventory = inventory;
 	}
+
+	private static int adminCounter = 1000;
+
+	private static int generateAdminID() {
+		return adminCounter++;
+	}
+
 
 	public void addProduct(Product product) {
 

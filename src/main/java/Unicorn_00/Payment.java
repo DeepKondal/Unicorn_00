@@ -18,7 +18,7 @@ public class Payment {
 		this.paymentID = UUID.randomUUID();
 		this.paymentDate = new Date();
 		this.paymentStatus = true;
-		System.out.println("Payment processed successfully!");
+		//System.out.println("Payment processed successfully!");
 	}
 
 	// Getters and setters
